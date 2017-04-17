@@ -31,8 +31,8 @@ The following **additional** features are implemented:
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1.
-2.
+1. I have duplicate code in the table cell for all the tweets and detail cell for one tweet. What are some ways to refactor that code?
+2. What is the proper way to size the countdown in the upper right for tweet limit?
 
 ## Video Walkthrough
 
