@@ -23,6 +23,7 @@
 		CEBFC2A41EA1DE7600002F15 /* OneTweetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBFC2A31EA1DE7600002F15 /* OneTweetTableViewCell.swift */; };
 		CEBFC2A61EA1E9CF00002F15 /* NewTweetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBFC2A51EA1E9CF00002F15 /* NewTweetViewController.swift */; };
 		CEBFC2A81EA349BF00002F15 /* ReplyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBFC2A71EA349BF00002F15 /* ReplyViewController.swift */; };
+		CEBFC2AC1EA493B600002F15 /* SimpleTwitter.gif in Resources */ = {isa = PBXBuildFile; fileRef = CEBFC2AB1EA493B600002F15 /* SimpleTwitter.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		CEBFC2A31EA1DE7600002F15 /* OneTweetTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OneTweetTableViewCell.swift; sourceTree = "<group>"; };
 		CEBFC2A51EA1E9CF00002F15 /* NewTweetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewTweetViewController.swift; sourceTree = "<group>"; };
 		CEBFC2A71EA349BF00002F15 /* ReplyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyViewController.swift; sourceTree = "<group>"; };
+		CEBFC2AB1EA493B600002F15 /* SimpleTwitter.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = SimpleTwitter.gif; sourceTree = "<group>"; };
 		D852EB7214F6460B9B15039B /* Pods-SimpleTwitter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleTwitter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SimpleTwitter/Pods-SimpleTwitter.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -81,6 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				CEBFC27F1EA1952600002F15 /* README.md */,
+				CEBFC2AB1EA493B600002F15 /* SimpleTwitter.gif */,
 				CE5A96491E9D6F30005205F5 /* SimpleTwitter */,
 				CE5A96481E9D6F30005205F5 /* Products */,
 				C855CA21C4D05CABF62D8746 /* Pods */,
@@ -214,6 +217,7 @@
 			files = (
 				CE5A96551E9D6F30005205F5 /* LaunchScreen.storyboard in Resources */,
 				CE5A96521E9D6F30005205F5 /* Assets.xcassets in Resources */,
+				CEBFC2AC1EA493B600002F15 /* SimpleTwitter.gif in Resources */,
 				CE5A96501E9D6F30005205F5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

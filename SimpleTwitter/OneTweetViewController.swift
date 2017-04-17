@@ -49,6 +49,9 @@ class OneTweetViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
 
+    @IBAction func onReloadButton(_ sender: Any) {
+        tableView.reloadData()
+    }
     /*
     // MARK: - Navigation
 

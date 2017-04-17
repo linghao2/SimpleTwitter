@@ -20,6 +20,9 @@ class OneTweetTableViewCell: UITableViewCell {
     @IBOutlet var retweetCount: UILabel!
     @IBOutlet var favoriteCount: UILabel!
     
+    @IBOutlet var retweetButton: UIButton!
+    @IBOutlet var favoriteButton: UIButton!
+    
     var tweet: Tweet! {
         didSet {
             tweetTextLabel.text = tweet.text
@@ -37,6 +40,18 @@ class OneTweetTableViewCell: UITableViewCell {
                 userProfileImage.setImageWith(image)
             }
             
+            var retweetName: String! = "retweet"
+            if tweet.retweeted {
+                retweetName = "retweet-green"
+            }
+            retweetButton.imageView?.image = UIImage.init(named: retweetName)
+            
+            var favoriteName: String! = "like"
+            if tweet.favorited {
+                favoriteName = "like-red"
+            }
+            favoriteButton.imageView?.image = UIImage.init(named: favoriteName)
+
             retweetCount.text = String(tweet.retweetCount)
             favoriteCount.text = String(tweet.favoritesCount)
             
@@ -63,10 +78,22 @@ class OneTweetTableViewCell: UITableViewCell {
     }
 
     @IBAction func onRetweetButton(_ sender: Any) {
-        TwitterClient.sharedInstance?.retweet(id: tweet.id_string)
+        if !tweet.retweeted {
+            tweet.retweeted = true
+            tweet.retweetCount += 1
+            retweetCount.text = String(tweet.retweetCount)
+            retweetButton.imageView?.image = UIImage.init(named: "retweet-green")
+            TwitterClient.sharedInstance?.retweet(id: tweet.id_string)
+        }
     }
     
     @IBAction func onFavoriteButton(_ sender: Any) {
-        TwitterClient.sharedInstance?.favorite(id: tweet.id_string)
+        if !tweet.favorited {
+            tweet.favorited = true
+            tweet.favoritesCount += 1
+            favoriteCount.text = String(tweet.favoritesCount)
+            favoriteButton.imageView?.image = UIImage.init(named: "like-red")
+            TwitterClient.sharedInstance?.favorite(id: tweet.id_string)
+        }
     }
 }
