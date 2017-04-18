@@ -43,23 +43,19 @@ class TweetTableViewCell: UITableViewCell {
             retweetCount.text = String(tweet.retweetCount)
             favoriteCount.text = String(tweet.favoritesCount)
 
-            var retweetName: String! = "retweet"
             var retweetColor: UIColor! = UIColor.darkGray
             if tweet.retweeted {
-                retweetName = "retweet-green"
                 retweetColor = UIColor(red: 53/256, green: 184/256, blue: 69/256, alpha: 1.0)
             }
-            retweetButton.imageView?.image = UIImage.init(named: retweetName)
             retweetCount.textColor = retweetColor
+            retweetButton.isSelected = tweet.retweeted
             
-            var favoriteName: String! = "like"
             var favoriteColor: UIColor! = UIColor.darkGray
             if tweet.favorited {
-                favoriteName = "like-red"
                 favoriteColor = UIColor(red: 199/256, green: 14/256, blue: 61/256, alpha: 1.0)
             }
-            favoriteButton.imageView?.image = UIImage.init(named: favoriteName)
             favoriteCount.textColor = favoriteColor
+            favoriteButton.isSelected = tweet.favorited
             
             let hasRetweet = tweet.retweetUser == nil
             retweetedImage.isHidden = hasRetweet
@@ -100,7 +96,11 @@ class TweetTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
+        retweetButton.setImage(UIImage.init(named: "retweet"), for: .normal)
+        retweetButton.setImage(UIImage.init(named: "retweet-green"), for: .selected)
+        
+        favoriteButton.setImage(UIImage.init(named: "like"), for: .normal)
+        favoriteButton.setImage(UIImage.init(named: "like-red"), for: .selected)
     }
 
     @IBAction func onRetweetButton(_ sender: Any) {
@@ -109,8 +109,7 @@ class TweetTableViewCell: UITableViewCell {
             tweet.retweetCount += 1
             retweetCount.text = String(tweet.retweetCount)
             retweetCount.textColor = UIColor(red: 53/256, green: 184/256, blue: 69/256, alpha: 1.0)
-            retweetButton.imageView?.image = UIImage.init(named: "retweet-green")
-            retweetButton.setNeedsLayout()
+            retweetButton.isSelected = true
             TwitterClient.sharedInstance?.retweet(id: tweet.id_string)
         }
     }
@@ -121,8 +120,7 @@ class TweetTableViewCell: UITableViewCell {
             tweet.favoritesCount += 1
             favoriteCount.text = String(tweet.favoritesCount)
             favoriteCount.textColor = UIColor(red: 199/256, green: 14/256, blue: 61/256, alpha: 1.0)
-            favoriteButton.imageView?.image = UIImage.init(named: "like-red")
-            retweetButton.setNeedsLayout()
+            favoriteButton.isSelected = true
             TwitterClient.sharedInstance?.favorite(id: tweet.id_string)
         }
     }

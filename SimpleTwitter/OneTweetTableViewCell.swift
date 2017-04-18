@@ -40,20 +40,11 @@ class OneTweetTableViewCell: UITableViewCell {
                 userProfileImage.setImageWith(image)
             }
             
-            var retweetName: String! = "retweet"
-            if tweet.retweeted {
-                retweetName = "retweet-green"
-            }
-            retweetButton.imageView?.image = UIImage.init(named: retweetName)
-            
-            var favoriteName: String! = "like"
-            if tweet.favorited {
-                favoriteName = "like-red"
-            }
-            favoriteButton.imageView?.image = UIImage.init(named: favoriteName)
-
             retweetCount.text = String(tweet.retweetCount)
+            retweetButton.isSelected = tweet.retweeted
+
             favoriteCount.text = String(tweet.favoritesCount)
+            favoriteButton.isSelected = tweet.favorited
             
             let hasRetweet = tweet.retweetUser == nil
             retweetedImage.isHidden = hasRetweet
@@ -68,7 +59,12 @@ class OneTweetTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+
+        retweetButton.setImage(UIImage.init(named: "retweet"), for: .normal)
+        retweetButton.setImage(UIImage.init(named: "retweet-green"), for: .selected)
+        
+        favoriteButton.setImage(UIImage.init(named: "like"), for: .normal)
+        favoriteButton.setImage(UIImage.init(named: "like-red"), for: .selected)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -82,7 +78,7 @@ class OneTweetTableViewCell: UITableViewCell {
             tweet.retweeted = true
             tweet.retweetCount += 1
             retweetCount.text = String(tweet.retweetCount)
-            retweetButton.imageView?.image = UIImage.init(named: "retweet-green")
+            retweetButton.isSelected = true
             TwitterClient.sharedInstance?.retweet(id: tweet.id_string)
         }
     }
@@ -92,7 +88,7 @@ class OneTweetTableViewCell: UITableViewCell {
             tweet.favorited = true
             tweet.favoritesCount += 1
             favoriteCount.text = String(tweet.favoritesCount)
-            favoriteButton.imageView?.image = UIImage.init(named: "like-red")
+            favoriteButton.isSelected = true
             TwitterClient.sharedInstance?.favorite(id: tweet.id_string)
         }
     }
