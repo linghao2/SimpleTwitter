@@ -21,8 +21,16 @@ class LoginViewController: UIViewController {
     
 
     @IBAction func loginTapped(_ sender: Any) {
-        TwitterClient.sharedInstance?.login(success: { 
-            self.performSegue(withIdentifier: "loginSegue", sender: self)
+        TwitterClient.sharedInstance?.login(success: {
+            //self.performSegue(withIdentifier: "loginSegue", sender: self)
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let hamburgerVC = storyboard.instantiateViewController(withIdentifier: "HamburgerViewController") as! HamburgerViewController
+            let menuVC = storyboard.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
+            hamburgerVC.menuViewController = menuVC
+            menuVC.hamburgerViewController = hamburgerVC
+            
+            self.present(hamburgerVC, animated: true, completion: nil)
         }, failure: { (error: Error) in
             print("error: \(error)")
         })

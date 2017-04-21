@@ -29,7 +29,7 @@ class OneTweetViewController: UIViewController, UITableViewDataSource, UITableVi
         super.didReceiveMemoryWarning()
     }
     
-    // MARK: - Navigation
+    // MARK: - TableView 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
@@ -48,18 +48,4 @@ class OneTweetViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
-
-    @IBAction func onReloadButton(_ sender: Any) {
-        tableView.reloadData()
-    }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

@@ -58,11 +58,28 @@ class TwitterClient: BDBOAuth1SessionManager {
 
     }
     
+    func userTimeline(screenName: String?, success: @escaping ([Tweet]) -> Void, failure: @escaping (Error) -> Void) {
+        var parameter: [String: Any?]?
+        if screenName != nil {
+            parameter = ["screen_name": screenName]
+        }
+        get("1.1/statuses/user_timeline.json", parameters: parameter, progress: { (Progress) in
+            print("progress")
+        }, success: { (task: URLSessionDataTask, response: Any?) in
+            //print("**user timeline response: \(response)")
+            let tweets = Tweet.tweetsWithArray(dictionaries: response as! [Dictionary<String, Any?>])
+            success(tweets)
+        }, failure: { (task: URLSessionDataTask?, error: Error) in
+            failure(error)
+        })
+    }
+
+    
     func homeTimeline(success: @escaping ([Tweet]) -> Void, failure: @escaping (Error) -> Void) {
         get("1.1/statuses/home_timeline.json", parameters: nil, progress: { (Progress) in
             print("progress")
         }, success: { (task: URLSessionDataTask, response: Any?) in
-            print("**timeline response: \(response)")
+            //print("**timeline response: \(response)")
             let tweets = Tweet.tweetsWithArray(dictionaries: response as! [Dictionary<String, Any?>])
             success(tweets)
         }, failure: { (task: URLSessionDataTask?, error: Error) in

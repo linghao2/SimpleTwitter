@@ -72,6 +72,12 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let navController = segue.destination as! UINavigationController
             let newTweetVC = navController.topViewController as! NewTweetViewController
             newTweetVC.delegate = self
+        } else if segue.identifier == "TweetProfileSegue" {
+            if let indexPath = tableView.indexPathForSelectedRow {
+                let controller = segue.destination as! ProfileViewController
+                let tweet = tweets?[indexPath.row]
+                controller.user = tweet?.user
+            }
         }
     }
 

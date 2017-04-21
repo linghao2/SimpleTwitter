@@ -1,15 +1,14 @@
 //
-//  TweetTableViewCell.swift
+//  BaseTweetTableViewCell.swift
 //  SimpleTwitter
 //
-//  Created by LING HAO on 4/13/17.
+//  Created by LING HAO on 4/20/17.
 //  Copyright © 2017 CodePath. All rights reserved.
 //
 
 import UIKit
 
-class TweetTableViewCell: UITableViewCell {
-
+class BaseTweetTableViewCell: UITableViewCell {
     @IBOutlet var retweetedImage: UIImageView!
     @IBOutlet var whoRetweeted: UILabel!
     @IBOutlet var userProfileImage: UIImageView!
@@ -19,14 +18,15 @@ class TweetTableViewCell: UITableViewCell {
     @IBOutlet var tweetTextLabel: UILabel!
     @IBOutlet var retweetCount: UILabel!
     @IBOutlet var favoriteCount: UILabel!
-    
     @IBOutlet var retweetButton: UIButton!
     @IBOutlet var favoriteButton: UIButton!
     
     @IBOutlet var userProfileTopConstraint: NSLayoutConstraint!
-    
+
     var tweet: Tweet! {
         didSet {
+            self.layoutIfNeeded()
+            
             tweetTextLabel.text = tweet.text
             userName.text = tweet.user?.name
             if let screenName = tweet.user?.screenName {
@@ -42,7 +42,7 @@ class TweetTableViewCell: UITableViewCell {
             
             retweetCount.text = String(tweet.retweetCount)
             favoriteCount.text = String(tweet.favoritesCount)
-
+            
             var retweetColor: UIColor! = UIColor.darkGray
             if tweet.retweeted {
                 retweetColor = UIColor(red: 53/256, green: 184/256, blue: 69/256, alpha: 1.0)
@@ -88,7 +88,7 @@ class TweetTableViewCell: UITableViewCell {
         let days = hours / 24
         return String(Int(days)) + "d"
     }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -101,8 +101,10 @@ class TweetTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-    }
 
+        // Configure the view for the selected state
+    }
+    
     @IBAction func onRetweetButton(_ sender: Any) {
         if !tweet.retweeted {
             tweet.retweeted = true
@@ -124,4 +126,6 @@ class TweetTableViewCell: UITableViewCell {
             TwitterClient.sharedInstance?.favorite(id: tweet.id_string)
         }
     }
+
+    
 }
