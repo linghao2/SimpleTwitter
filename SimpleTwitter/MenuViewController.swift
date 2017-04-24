@@ -24,7 +24,7 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
     weak var hamburgerViewController: HamburgerViewController! {
         didSet {
             view.layoutIfNeeded()
-            hamburgerViewController.contentViewController = controllers[0]
+            hamburgerViewController.contentViewController = controllers[1]
         }
     }
     
@@ -69,6 +69,16 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         hamburgerViewController.contentViewController = controllers[indexPath.row]
+    }
+    
+    func selectMenu(named menu: String) {
+        var index = 0
+        for title in menuTitle {
+            if title == menu {
+                hamburgerViewController.contentViewController = controllers[index]
+            }
+            index += 1
+        }
     }
 
 

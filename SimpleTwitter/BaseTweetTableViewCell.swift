@@ -60,7 +60,7 @@ class BaseTweetTableViewCell: UITableViewCell {
             let hasRetweet = tweet.retweetUser == nil
             retweetedImage.isHidden = hasRetweet
             whoRetweeted.isHidden = hasRetweet
-            var constraintsConst = 10
+            var constraintsConst = 16
             if hasRetweet {
                 constraintsConst = 2
             }

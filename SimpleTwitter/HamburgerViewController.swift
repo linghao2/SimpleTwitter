@@ -33,7 +33,17 @@ class HamburgerViewController: UIViewController {
             
             contentViewController.willMove(toParentViewController: self)
             
-            contentView.addSubview(contentViewController.view)
+            if animateAddSubView {
+                let newFrame = contentViewController.view.frame
+                contentViewController.view.frame = newFrame.offsetBy(dx: 0.0, dy: newFrame.height)
+                contentView.addSubview(contentViewController.view)
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.contentViewController.view.frame = newFrame
+                })
+                animateAddSubView = false
+            } else {
+                contentView.addSubview(contentViewController.view)
+            }
             
             contentViewController.didMove(toParentViewController: self)
             
@@ -44,6 +54,8 @@ class HamburgerViewController: UIViewController {
             }
         }
     }
+    
+    var animateAddSubView = false
     
     @IBOutlet var contentViewLeadingConstraint: NSLayoutConstraint!
     var originalContentViewMargin: CGFloat = 0.0
@@ -77,6 +89,11 @@ class HamburgerViewController: UIViewController {
                 }
             })
         }
+    }
+    
+    func selectMenu(named menu: String) {
+        animateAddSubView = true
+        menuViewController.selectMenu(named: menu)
     }
 
     /*

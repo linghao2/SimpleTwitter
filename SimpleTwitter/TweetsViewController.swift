@@ -19,7 +19,9 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         tableView.delegate = self
         tableView.dataSource = self
-        
+        let nibName = UINib(nibName: "BaseTweetTableViewCell", bundle: nil)
+        tableView.register(nibName, forCellReuseIdentifier: "BaseTweetTableViewCell")
+
         // automatically resize row
         tableView.estimatedRowHeight = 320
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -31,6 +33,9 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
             print("error \(error.localizedDescription)")
         })
         
+        // Tap gesture
+        
+        
         // pull to refresh
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refreshControlAction(_:)), for: UIControlEvents.valueChanged)
@@ -39,6 +44,12 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    func onTapGesture(recognizer: UITapGestureRecognizer) {
+        print("onTapGesture \(recognizer.view)")
+        let indexPath = tableView.indexPathForRow(at: recognizer.location(in: tableView))
+        self.performSegue(withIdentifier: "TweetProfileSegue", sender: indexPath)
     }
     
     // MARK: Refresh
@@ -73,7 +84,7 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let newTweetVC = navController.topViewController as! NewTweetViewController
             newTweetVC.delegate = self
         } else if segue.identifier == "TweetProfileSegue" {
-            if let indexPath = tableView.indexPathForSelectedRow {
+            if let indexPath = sender as? IndexPath {
                 let controller = segue.destination as! ProfileViewController
                 let tweet = tweets?[indexPath.row]
                 controller.user = tweet?.user
@@ -88,12 +99,18 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TweetCell", for: indexPath) as! TweetTableViewCell
+        let tweetCell = tableView.dequeueReusableCell(withIdentifier: "BaseTweetTableViewCell", for: indexPath) as! BaseTweetTableViewCell
+        tweetCell.selectionStyle = .none
+        tweetCell.tweet = tweets?[indexPath.row]
         
-        cell.selectionStyle = .none
-        cell.tweet = tweets?[indexPath.row]
+        let goGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(onTapGesture(recognizer:)))
+        tweetCell.userProfileImage.addGestureRecognizer(goGesture)
         
-        return cell
+        return tweetCell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "OneTweetSegue", sender: tableView)
     }
     
     // MARK: NewTweetDelegate

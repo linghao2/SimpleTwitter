@@ -26,7 +26,7 @@ class MentionsViewController: UIViewController, UITableViewDataSource, UITableVi
         tableView.estimatedRowHeight = 320
         tableView.rowHeight = UITableViewAutomaticDimension
 
-        TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) in
+        TwitterClient.sharedInstance?.mentionsTimeline(success: { (tweets: [Tweet]) in
             self.tweets = tweets
             self.tableView.reloadData()
         }, failure: { (error: Error) in

@@ -87,10 +87,23 @@ class TwitterClient: BDBOAuth1SessionManager {
         })
     }
     
+    func mentionsTimeline(success: @escaping ([Tweet]) -> Void, failure: @escaping (Error) -> Void) {
+        get("1.1/statuses/mentions_timeline.json", parameters: nil, progress: { (Progress) in
+            print("progress")
+        }, success: { (task: URLSessionDataTask, response: Any?) in
+            //print("**mentions response: \(response)")
+            let tweets = Tweet.tweetsWithArray(dictionaries: response as! [Dictionary<String, Any?>])
+            success(tweets)
+        }, failure: { (task: URLSessionDataTask?, error: Error) in
+            failure(error)
+        })
+    }
+
     func currentAccount(success: @escaping (User) -> Void, failure: @escaping (Error) -> Void) {
         get("1.1/account/verify_credentials.json", parameters: nil, progress: { (progress: Progress) in
             print("progress")
         }, success: { (task: URLSessionDataTask, response: Any?) in
+            print("**** user: \(response)")
             let user = User(dictionary: response as! Dictionary<String, Any?>)
             success(user)
             
@@ -103,7 +116,7 @@ class TwitterClient: BDBOAuth1SessionManager {
         post("1.1/statuses/update.json", parameters: ["status": tweet], progress: { (progress: Progress) in
             print("progress")
         }, success: { (task: URLSessionDataTask, response: Any?) in
-            print("**tweet response: \(response)")
+            //print("**tweet response: \(response)")
             let dictionary = response as! Dictionary<String, Any?>
             let tweet = Tweet(dictionary: dictionary)
             success(tweet)

@@ -17,6 +17,9 @@ class ProfileTableViewCell: UITableViewCell {
     @IBOutlet var followingCount: UILabel!
     @IBOutlet var followerCount: UILabel!
     
+    @IBOutlet var imageHeight: NSLayoutConstraint!
+    @IBOutlet var imageWidth: NSLayoutConstraint!
+    
     var user: User! {
         didSet {
             if let image = user.profileBackgroundUrl {
